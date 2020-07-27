@@ -23,10 +23,10 @@ export const asyncRouterMap = [
         meta: { title: 'menu.dashboard', keepAlive: false, permission: [ 'ADMIN' ] }
       },
       {
-        path: '/analysis',
-        name: 'Analysis',
-        component: () => import('@/views/dashboard/Analysis'),
-        meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: [ 'ADMIN' ] }
+        path: '/setting',
+        name: 'Setting',
+        component: () => import('@/views/setting/Index'),
+        meta: { title: 'menu.setting', keepAlive: false, permission: [ 'ADMIN' ] }
       },
 
       // Exception
