@@ -13,12 +13,12 @@
         @change="handleTabClick"
       >
         <a-tab-pane key="tab1" tab="账号密码登录">
-          <a-alert v-if="isLoginError" type="error" showIcon style="margin-bottom: 24px;" message="账户或密码错误（admin/ant.design )" />
+          <a-alert v-if="isLoginError" type="error" showIcon style="margin-bottom: 24px;" message="账户或密码错误" />
           <a-form-item>
             <a-input
               size="large"
               type="text"
-              placeholder="账户: admin"
+              placeholder="账户: evatar"
               v-decorator="[
                 'username',
                 {rules: [{ required: true, message: '请输入帐户名' }, { validator: handleUsernameOrEmail }], validateTrigger: 'change'}
@@ -31,7 +31,7 @@
           <a-form-item>
             <a-input-password
               size="large"
-              placeholder="密码: admin"
+              placeholder="密码: efun"
               v-decorator="[
                 'password',
                 {rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur'}
@@ -63,7 +63,6 @@
 </template>
 
 <script>
-import md5 from 'md5'
 import { mapActions } from 'vuex'
 import { timeFix } from '@/utils/util'
 
@@ -88,7 +87,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['Login', 'Logout']),
+    ...mapActions(['Login']),
     // handler
     handleUsernameOrEmail (rule, value, callback) {
       const { state } = this
@@ -111,17 +110,11 @@ export default {
         state,
         Login
       } = this
-
       state.loginBtn = true
-
-      const validateFieldsKey = ['username', 'password']
-
-      validateFields(validateFieldsKey, { force: true }, (err, values) => {
+      validateFields(['username', 'password'], { force: true }, (err, values) => {
         if (!err) {
           console.log('login form', values)
           const loginParams = { ...values }
-          loginParams.username = values.username
-          loginParams.password = md5(values.password)
           Login(loginParams)
             .then((res) => this.loginSuccess(res))
             .catch(err => this.requestFailed(err))
@@ -136,7 +129,6 @@ export default {
       })
     },
     loginSuccess (res) {
-      console.log(res)
       // check res.homePage define, set $router.push name res.homePage
       // Why not enter onComplete
       /*
