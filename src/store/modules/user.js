@@ -1,6 +1,5 @@
 import storage from 'store'
 import { login, getUserInfo } from '@/api/login'
-import Vue from 'vue'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
 
@@ -62,7 +61,7 @@ const user = {
     Logout ({ commit, state }) {
       commit('SET_TOKEN', '')
       commit('SET_ROLE', '')
-      Vue.ls.remove(ACCESS_TOKEN)
+      storage.remove(ACCESS_TOKEN)
     }
 
   }
