@@ -31,12 +31,13 @@ router.beforeEach((to, from, next) => {
         store
           .dispatch('GetUserInfo')
           .then(res => {
-            const role = res.roles || 'ADMIN'
+            const role = res.roles || 'ADMIN' // 初始化没有商定权限控制手段时，暂定所有用户为ADMIN权限，路由都可访问
             // generate dynamic router
             store.dispatch('GenerateRoutes', { role }).then(() => {
+              // 先重置路由数组，以避免重复
+              resetRouter()
               // 根据roles权限生成可访问的路由表
               // 动态添加可访问路由表
-              resetRouter()
               // router.matcher.match({ constantRouterMap })
               router.addRoutes(store.getters.addRouters)
               // 请求带有 redirect 重定向时，登录自动重定向到该地址
