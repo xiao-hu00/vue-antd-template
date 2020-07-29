@@ -1,7 +1,9 @@
 <template>
-  <div>
-    首页
-  </div>
+  <page-header-wrapper>
+    <template v-slot:content>
+      <p>Home</p>
+    </template>
+  </page-header-wrapper>
 </template>
 
 <script>

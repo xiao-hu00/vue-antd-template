@@ -1,8 +1,8 @@
 <template>
-  <a-dropdown v-if="currentUser && currentUser.name" placement="bottomRight">
+  <a-dropdown v-if="user.name" placement="bottomRight">
     <span class="ant-pro-account-avatar">
       <a-avatar size="small" src="https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png" class="antd-pro-global-header-index-avatar" />
-      <span>{{ currentUser.name }}</span>
+      <span>{{ user.name }}</span>
     </span>
     <template v-slot:overlay>
       <a-menu class="ant-pro-drop-down menu" :selected-keys="[]">
@@ -29,18 +29,20 @@
 
 <script>
 import { Modal } from 'ant-design-vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'AvatarDropdown',
   props: {
-    currentUser: {
-      type: Object,
-      default: () => null
-    },
     menu: {
       type: Boolean,
       default: true
     }
+  },
+  computed: {
+    ...mapState({
+      user: state => state.user
+    })
   },
   methods: {
     handleToCenter () {
