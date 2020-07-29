@@ -1,5 +1,6 @@
 import storage from 'store'
 import { login, getUserInfo } from '@/api/login'
+import { deleteUser, addUser, updateUser, searchUser } from '@/api/manage'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
 
@@ -58,12 +59,65 @@ const user = {
         })
       })
     },
-    Logout ({ commit, state }) {
+    Logout ({ commit }) {
       commit('SET_TOKEN', '')
       commit('SET_ROLE', '')
       storage.remove(ACCESS_TOKEN)
+    },
+    AddUser ({ dispatch }, data) {
+      return new Promise((resolve, reject) => {
+        addUser(data).then((data) => {
+          resolve(data)
+        }).catch(error => {
+          dispatch('errHandler', error)
+          throw error
+        })
+      })
+    },
+    DeleteUser ({ dispatch }, data) {
+      return new Promise((resolve, reject) => {
+        deleteUser(data).then((data) => {
+          resolve(data)
+        }).catch(error => {
+          dispatch('errHandler', error)
+          throw error
+        })
+      })
+    },
+    UpdateUser ({ dispatch }, data) {
+      return new Promise((resolve, reject) => {
+        updateUser(data).then((data) => {
+          resolve(data)
+        }).catch(error => {
+          dispatch('errHandler', error)
+          throw error
+        })
+      })
+    },
+    SearchUser ({ dispatch }, data) {
+      return new Promise((resolve, reject) => {
+        searchUser(data).then((data) => {
+          resolve(data)
+        }).catch(error => {
+          dispatch('errHandler', error)
+          throw error
+        })
+      })
+    },
+    errHandler ({ commit }, res) {
+      if (!res) {
+        return
+      }
+      let data = null
+      if (res.status && res.data) {
+        data = res.data
+      } else if (res.error) {
+        data = res.error
+      } else {
+        return
+      }
+      window.app.$notification.error({ message: data.message, duration: 4 })
     }
-
   }
 }
 
