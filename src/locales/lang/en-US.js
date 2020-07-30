@@ -11,6 +11,8 @@ const locale = {
   'message': '-',
   'menu.home': 'Home',
   'menu.dashboard': 'Dashboard',
+  'menu.permissionSetting': 'permission setting',
+  'menu.roleSetting': 'role setting',
   'menu.setting': 'UserSetting',
   'menu.dashboard.monitor': 'Monitor',
   'menu.dashboard.workplace': 'Workplace',

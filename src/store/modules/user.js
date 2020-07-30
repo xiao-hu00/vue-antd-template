@@ -10,7 +10,7 @@ const user = {
     name: '',
     welcome: '',
     avatar: '',
-    role: '',
+    roles: '',
     info: {}
   },
 
@@ -22,8 +22,8 @@ const user = {
       state.name = name
       state.welcome = welcome
     },
-    SET_ROLE: (state, role) => {
-      state.role = role
+    SET_ROLE: (state, roles) => {
+      state.roles = roles
     },
     SET_INFO: (state, info) => {
       state.info = info
@@ -50,7 +50,7 @@ const user = {
             commit('SET_ROLE', data.roles)
             commit('SET_INFO', data)
           } else {
-            commit('SET_ROLE', 'ADMIN')
+            commit('SET_ROLE', [{ code: 'ADMIN', name: '普通管理员' }])
           }
           commit('SET_NAME', { name: data.username, welcome: welcome() })
           resolve(data)

@@ -28,6 +28,18 @@ export const asyncRouterMap = [
         component: () => import('@/views/setting/Index'),
         meta: { title: 'menu.setting', keepAlive: false, permission: [ 'ADMIN' ] }
       },
+      {
+        path: '/permissionSetting',
+        name: 'Permission',
+        component: () => import('@/views/permission/Index'),
+        meta: { title: 'menu.permissionSetting', keepAlive: false, permission: [ 'ADMIN' ] }
+      },
+      {
+        path: '/roleSetting',
+        name: 'Role',
+        component: () => import('@/views/role/Index'),
+        meta: { title: 'menu.roleSetting', keepAlive: false, permission: [ 'ADMIN' ] }
+      },
 
       // Exception
       {

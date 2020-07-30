@@ -52,7 +52,8 @@ export default {
 	},
 	methods: {
 		handleCancel () {
-			this.$emit('update:visible', false)
+      this.$emit('update:visible', false)
+      this.form.resetFields()
     },
     handleOk () {
       this.form.validateFields((err, values) => {

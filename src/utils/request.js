@@ -14,13 +14,25 @@ const request = axios.create({
 
 // 异常拦截处理器
 const errorHandler = (error) => {
+  console.log('request error', error)
   if (error.response) {
     const data = error.response.data
-    // 从 localstorage 获取 token
-    const token = storage.get(ACCESS_TOKEN)
+    // const token = Vue.ls.get(ACCESS_TOKEN)
     if (error.response.status === 403) {
       notification.error({
         message: 'Forbidden',
+        description: data.message
+      })
+    }
+    if (error.response.status === 500) {
+      notification.error({
+        message: 'Server Error',
+        description: data.message
+      })
+    }
+    if (error.response.status === 400) {
+      notification.error({
+        message: 'bad request',
         description: data.message
       })
     }
@@ -29,13 +41,21 @@ const errorHandler = (error) => {
         message: 'Unauthorized',
         description: 'Authorization verification failed'
       })
-      if (token) {
-        store.dispatch('Logout').then(() => {
-          setTimeout(() => {
+      store.dispatch('Logout').then(() => {
+        setTimeout(() => {
+          const loginRoleStr = localStorage.getItem('loginRole')
+          if (loginRoleStr && loginRoleStr !== '{}') {
+            const loginRole = JSON.parse(loginRoleStr)
+            if (loginRole.loginPath) {
+              window.location.href = loginRole.loginPath
+            } else {
+              window.location.reload()
+            }
+          } else {
             window.location.reload()
-          }, 1500)
-        })
-      }
+          }
+        }, 1500)
+      })
     }
   }
   return Promise.reject(error)

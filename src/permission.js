@@ -26,14 +26,15 @@ router.beforeEach((to, from, next) => {
       NProgress.done()
     } else {
       // check login user.roles is null
-      if (!store.getters.role) {
+      if (!store.getters.roles || store.getters.roles.length === 0) {
         // request login userInfo
         store
           .dispatch('GetUserInfo')
           .then(res => {
-            const role = res.roles || 'ADMIN' // 初始化没有商定权限控制手段时，暂定所有用户为ADMIN权限，路由都可访问
+            const roles = res.roles || [] // 初始化没有商定权限控制手段时，暂定所有用户为ADMIN权限，路由都可访问
+            roles.push({ name: '普通管理员', code: 'ADMIN' })
             // generate dynamic router
-            store.dispatch('GenerateRoutes', { role }).then(() => {
+            store.dispatch('GenerateRoutes', { roles }).then(() => {
               // 先重置路由数组，以避免重复
               resetRouter()
               // 根据roles权限生成可访问的路由表
