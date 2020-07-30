@@ -25,7 +25,7 @@ export const asyncRouterMap = [
       {
         path: '/setting',
         name: 'Setting',
-        component: () => import('@/views/setting/Index'),
+        component: () => import('@/views/userSetting/Index'),
         meta: { title: 'menu.setting', keepAlive: false, permission: [ 'ADMIN' ] }
       },
       {

@@ -29,9 +29,9 @@
         :pagination="pagination"
         @change="handleTableChange">
         <template slot="action" slot-scope="text, record">
-          <a-button @click="editItem(record)">编辑</a-button>
-          <!-- <a-button style="margin-left: 15px;" @click="handleItem(record)">{{ record.status ? '停用' : '启用' }}</a-button> -->
-          <a-button style="margin-left: 15px;" @click="deleteItem(record.id)">删除</a-button>
+          <a @click="editItem(record)">编辑</a>
+          <!-- <a style="margin-left: 15px;" @click="handleItem(record)">{{ record.status ? '停用' : '启用' }}</a> -->
+          <a style="margin-left: 15px;" @click="deleteItem(record.id)">删除</a>
         </template>
       </a-table>
     </div>

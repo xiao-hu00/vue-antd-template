@@ -1,4 +1,4 @@
-import { deletePermission, addPermission, updatePermission, searchPermission, deleteRole, addRole, updateRole, searchRole } from '@/api/manage'
+import { deletePermission, addPermission, updatePermission, searchPermission, deleteRole, addRole, updateRole, searchRole, roleAddPermission, roleDeletePermission, getPermissionList } from '@/api/manage'
 
 const permissionSetting = {
   state: {
@@ -81,6 +81,36 @@ const permissionSetting = {
     SearchRole ({ dispatch }, data) {
       return new Promise((resolve, reject) => {
         searchRole(data).then((data) => {
+          resolve(data)
+        }).catch(error => {
+          dispatch('errHandler', error)
+          throw error
+        })
+      })
+    },
+    GetPermissionList ({ dispatch }, data) {
+      return new Promise((resolve, reject) => {
+        getPermissionList(data).then((data) => {
+          resolve(data)
+        }).catch(error => {
+          dispatch('errHandler', error)
+          throw error
+        })
+      })
+    },
+    RoleAddPermission ({ dispatch }, data) {
+      return new Promise((resolve, reject) => {
+        roleAddPermission(data).then((data) => {
+          resolve(data)
+        }).catch(error => {
+          dispatch('errHandler', error)
+          throw error
+        })
+      })
+    },
+    RoleDeletePermission ({ dispatch }, data) {
+      return new Promise((resolve, reject) => {
+        roleDeletePermission(data).then((data) => {
           resolve(data)
         }).catch(error => {
           dispatch('errHandler', error)

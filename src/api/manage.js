@@ -12,7 +12,13 @@ const api = {
   addRole: '/api/admin/role/add',
   updateRole: '/api/admin/role/update',
   deleteRole: '/api/admin/role/delete',
-  searchRole: '/api/admin/role/search'
+  searchRole: '/api/admin/role/search',
+  getRoleList: '/api/admin/user/getRoles',
+  userAddRole: '/api/admin/user/addRole',
+  userDeleteRole: '/api/admin/user/deleteRole',
+  getPermissionList: '/api/admin/role/getPermissions',
+  roleAddPermission: '/api/admin/user/deleteRole',
+  roleDeletePermission: '/api/admin/user/deleteRole'
 }
 
 export default api
@@ -102,9 +108,58 @@ export function deleteRole (parameter) {
     data: parameter
   })
 }
+
 export function searchRole (parameter) {
   return request({
     url: api.searchRole,
+    method: 'get',
+    params: parameter
+  })
+}
+
+export function getRoleList (parameter) {
+  return request({
+    url: api.getRoleList,
+    method: 'get',
+    params: parameter
+  })
+}
+
+export function userAddRole (parameter) {
+  return request({
+    url: api.userAddRole,
+    method: 'post',
+    data: parameter
+  })
+}
+
+export function userDeleteRole (parameter) {
+  return request({
+    url: api.userDeleteRole,
+    method: 'post',
+    data: parameter
+  })
+}
+
+export function roleAddPermission (parameter) {
+  return request({
+    url: api.roleAddPermission,
+    method: 'post',
+    data: parameter
+  })
+}
+
+export function roleDeletePermission (parameter) {
+  return request({
+    url: api.roleDeletePermission,
+    method: 'post',
+    data: parameter
+  })
+}
+
+export function getPermissionList (parameter) {
+  return request({
+    url: api.getPermissionList,
     method: 'get',
     params: parameter
   })

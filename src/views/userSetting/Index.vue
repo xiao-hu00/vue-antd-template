@@ -46,20 +46,23 @@
           <span>{{ text ? '启用' : '停用' }}</span>
         </template>
         <template slot="action" slot-scope="text, record">
-          <a-button @click="editItem(record)">编辑</a-button>
-          <a-button style="margin-left: 15px;" @click="handleItem(record)">{{ record.status ? '停用' : '启用' }}</a-button>
-          <a-button style="margin-left: 15px;" @click="deleteItem(record.id)">删除</a-button>
+          <a @click="editItem(record)">编辑</a>
+          <a style="margin-left: 15px;" @click="handleItem(record)">{{ record.status ? '停用' : '启用' }}</a>
+          <a style="margin-left: 15px;" @click="manegeItem(record)">管理</a>
+          <a style="margin-left: 15px;" @click="deleteItem(record.id)">删除</a>
         </template>
       </a-table>
     </div>
     <add-user-modal :visible.sync="visible" @updateUserList="updateUserList"/>
     <update-user-modal :updateVisible.sync="updateVisible" :item="item" @updateUserList="updateUserList"/>
+    <manage-modal :manageVisible.sync="manageVisible" :item="item"/>
   </page-header-wrapper>
 </template>
 
 <script>
 import { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
 import AddUserModal from './components/AddUserModal'
+import ManageModal from './components/ManageModal'
 import UpdateUserModal from './components/UpdateUserModal'
 
 export default {
@@ -67,12 +70,14 @@ export default {
   components: {
     PageHeaderWrapper,
     AddUserModal,
-    UpdateUserModal
+    UpdateUserModal,
+    ManageModal
   },
   data () {
     return {
       visible: false,
       updateVisible: false,
+      manageVisible: false,
       loading: false,
       item: {},
       pagination: {
@@ -142,6 +147,10 @@ export default {
     editItem (item) {
       this.item = item
       this.updateVisible = true
+    },
+    manegeItem (item) {
+      this.item = item
+      this.manageVisible = true
     },
     handleItem (item) {
       console.log(item)

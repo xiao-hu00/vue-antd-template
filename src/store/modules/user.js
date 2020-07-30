@@ -1,6 +1,6 @@
 import storage from 'store'
 import { login, getUserInfo } from '@/api/login'
-import { deleteUser, addUser, updateUser, searchUser } from '@/api/manage'
+import { deleteUser, addUser, updateUser, searchUser, getRoleList, userAddRole, userDeleteRole } from '@/api/manage'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
 
@@ -97,6 +97,36 @@ const user = {
     SearchUser ({ dispatch }, data) {
       return new Promise((resolve, reject) => {
         searchUser(data).then((data) => {
+          resolve(data)
+        }).catch(error => {
+          dispatch('errHandler', error)
+          throw error
+        })
+      })
+    },
+    GetRoleList ({ dispatch }, data) {
+      return new Promise((resolve, reject) => {
+        getRoleList(data).then((data) => {
+          resolve(data)
+        }).catch(error => {
+          dispatch('errHandler', error)
+          throw error
+        })
+      })
+    },
+    UserAddRole ({ dispatch }, data) {
+      return new Promise((resolve, reject) => {
+        userAddRole(data).then((data) => {
+          resolve(data)
+        }).catch(error => {
+          dispatch('errHandler', error)
+          throw error
+        })
+      })
+    },
+    UserDeleteRole ({ dispatch }, data) {
+      return new Promise((resolve, reject) => {
+        userDeleteRole(data).then((data) => {
           resolve(data)
         }).catch(error => {
           dispatch('errHandler', error)
